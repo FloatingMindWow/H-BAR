@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>H-BAR</h1>
+<form class="mb-3" method="get" action="{{ url_for('index') }}">
+  <div class="input-group">
+    <input type="text" name="q" class="form-control" placeholder="Cerca" value="{{ term or '' }}">
+    <button class="btn btn-outline-secondary" type="submit">Cerca</button>
+  </div>
+</form>
+<form class="mb-4" method="post" action="{{ url_for('add') }}" enctype="multipart/form-data">
+  <div class="mb-2">
+    <input type="text" name="name" class="form-control" placeholder="Nome prodotto" required>
+  </div>
+  <div class="mb-2">
+    <input type="file" name="photo" class="form-control">
+  </div>
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" name="in_test" id="inTestCheck">
+    <label class="form-check-label" for="inTestCheck">In test</label>
+  </div>
+  <button class="btn btn-primary" type="submit">Aggiungi</button>
+</form>
+<ul class="list-group">
+  {% for p in products %}
+  <li class="list-group-item">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ p.name }}</strong>
+        {% if p.in_test %}<span class="badge bg-warning text-dark">In test</span>{% endif %}
+        <div class="text-muted small">Rating: {{ "%.1f"|format(p.avg_rating) }} ({{ p.ratings_count }})</div>
+      </div>
+      <form method="post" action="{{ url_for('mark', product_id=p.id) }}">
+        <input type="hidden" name="in_test" value="{{ 1 if not p.in_test else 0 }}">
+        <button class="btn btn-sm btn-outline-secondary" type="submit">
+          {% if p.in_test %}Rimuovi test{% else %}In test{% endif %}
+        </button>
+      </form>
+    </div>
+    <form class="mt-2" method="post" action="{{ url_for('rate', product_id=p.id) }}">
+      <div class="input-group">
+        <input type="range" min="0" max="10" step="1" value="5" name="score" class="form-range w-100">
+        <button class="btn btn-success ms-2" type="submit">Salva</button>
+      </div>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
