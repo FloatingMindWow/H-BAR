@@ -77,6 +77,43 @@ class HBar:
         else:
             print('Product not found')
 
+    def get_products(self, term=None):
+        c = self.conn.cursor()
+        query = 'SELECT id, name, photo, in_test, avg_rating, ratings_count FROM products'
+        params = ()
+        if term:
+            query += ' WHERE name LIKE ?'
+            params = (f'%{term}%',)
+        query += ' ORDER BY in_test DESC, name'
+        c.execute(query, params)
+        rows = c.fetchall()
+        result = []
+        for row in rows:
+            result.append({
+                'id': row[0],
+                'name': row[1],
+                'photo': row[2],
+                'in_test': bool(row[3]),
+                'avg_rating': row[4],
+                'ratings_count': row[5]
+            })
+        return result
+
+    def get_product(self, product_id):
+        c = self.conn.cursor()
+        c.execute('SELECT id, name, photo, in_test, avg_rating, ratings_count FROM products WHERE id=?', (product_id,))
+        row = c.fetchone()
+        if row:
+            return {
+                'id': row[0],
+                'name': row[1],
+                'photo': row[2],
+                'in_test': bool(row[3]),
+                'avg_rating': row[4],
+                'ratings_count': row[5]
+            }
+        return None
+
 
 def main():
     import argparse

@@ -35,3 +35,15 @@ H-BAR è una semplice applicazione da riga di comando pensata per i baristi. Con
    ```
 
 Il database SQLite `hbar.db` viene creato nella stessa cartella e mantiene le informazioni tra un utilizzo e l'altro.
+
+## Interfaccia web
+
+Per una versione accessibile da dispositivi mobili è disponibile una piccola applicazione web.
+Per avviarla:
+
+```bash
+python web_app.py
+```
+
+Poi apri il browser su `http://localhost:5000`.
+L'interfaccia permette di cercare rapidamente i prodotti, aggiungerne di nuovi con foto, segnarli come "in test" e registrare il voto del cliente con uno slider da 0 a 10.
