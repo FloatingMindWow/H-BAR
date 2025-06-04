@@ -1,8 +1,9 @@
 import sqlite3
 import os
 from datetime import datetime
+import config
 
-DB_NAME = 'hbar.db'
+DB_NAME = config.DB_NAME
 
 class HBar:
     def __init__(self, db_name=DB_NAME):

@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 
+import config
 from hbar import HBar
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'photos')
 
-hb = HBar()
+hb = HBar(config.DB_NAME)
 
 @app.route('/')
 def index():

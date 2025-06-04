@@ -5,6 +5,7 @@ H-BAR è una semplice applicazione da riga di comando pensata per i baristi. Con
 ## Requisiti
 
 - Python 3
+- Facoltativo per l'interfaccia web: [Flask](https://flask.palletsprojects.com/) (installabile con `pip install flask`)
 
 ## Utilizzo
 
@@ -34,7 +35,7 @@ H-BAR è una semplice applicazione da riga di comando pensata per i baristi. Con
    python hbar.py rate <id_prodotto> <punteggio_da_0_a_10>
    ```
 
-Il database SQLite `hbar.db` viene creato nella stessa cartella e mantiene le informazioni tra un utilizzo e l'altro.
+Il nome del database è definito in `config.py` (impostato di default su `hbar.db`). Puoi modificarlo se desideri salvare l'archivio in un percorso diverso.
 
 ## Interfaccia web
 
@@ -46,4 +47,4 @@ python web_app.py
 ```
 
 Poi apri il browser su `http://localhost:5000`.
-L'interfaccia permette di cercare rapidamente i prodotti, aggiungerne di nuovi con foto, segnarli come "in test" e registrare il voto del cliente con uno slider da 0 a 10.
+L'interfaccia utilizza Bootstrap e un foglio di stile personalizzato (in `static/css/custom.css`) per essere facilmente fruibile da mobile. Permette di cercare rapidamente i prodotti, aggiungerne di nuovi con foto, segnarli come "in test" e registrare il voto del cliente con uno slider da 0 a 10.
